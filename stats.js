@@ -168,12 +168,15 @@ function stats({
       controlPoints.push([x,y]);
       onChange(controlPoints);
 
-      div.addEventListener('touchend', (event) => {
+      div.addEventListener('touchstart', () => {
+        document.body.setAttribute('style', 'overflow: hidden');
+      }, {passive: false});
+      div.addEventListener('touchmove', (event) => {
         const control = document.getElementById(id);
         const { x: containerX, y: containerY } = controlsContainer.getBoundingClientRect();
     
-        const left = event.changedTouches[event.changedTouches.length-1].pageX - containerX;
-        const top = event.changedTouches[event.changedTouches.length-1].pageY - containerY;
+        const left = (event.changedTouches[event.changedTouches.length-1].pageX - containerX) * .95;
+        const top = (event.changedTouches[event.changedTouches.length-1].pageY - containerY) * .8;
         const { height: containerHeight, width: containerWidth } = getElementDimensions(controlsContainer);
         const x = (left / containerWidth) * 100;
         const y = (top / containerHeight) * 100;
@@ -192,6 +195,9 @@ function stats({
           foregroundColor,
         );
         onChange(controlPoints);
+      });
+      div.addEventListener('touchend', () => {
+        document.body.removeAttribute('style');
       });
     });
 
