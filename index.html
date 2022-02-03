@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stats Picker</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <main>
+      <h1>Stats Picker by centaurreader</h1>
+  
+      <div id="stats"></div>
+  
+      <section class="controls">
+        <h2>Controls</h2>
+        <label>
+          Foreground Color
+          <input type="color" id="foreground_color" value="#ff6347" />
+        </label>
+        <label>
+          Background Color
+          <input type="color" id="background_color" value="#d8bfd8" />
+        </label>
+        <label>
+          Points
+          <input type="number" min="0" step="1" id="points" value="3" />
+        </label>
+        <label>
+          Labels
+          <textarea
+            rows="6"
+            id="labels"
+          >
+Muscle
+Knowledge
+Hair Quality
+Eye Sight
+Dog Loving
+          </textarea>
+          <small>Each on a new line</small>
+        </label>
+      </section>
+    </main>
+
+    <script src="stats.js"></script>
+    <script>
+      let values = [];
+
+      const foregroundColor = document.getElementById('foreground_color');
+      const backgroundColor = document.getElementById('background_color');
+      const points = document.getElementById('points');
+      const labels = document.getElementById('labels');
+
+      const render = () => {
+        values = new Stats({
+          selector: '#stats',
+          labels: labels.value.split(/\n/).filter((v) => !!v.trim()),
+          pointCount: parseInt(points.value, 10),
+          backgroundColor: backgroundColor.value,
+          foregroundColor: foregroundColor.value,
+          values,
+          onChange: (value) => { values = value; },
+        });
+      };
+
+      foregroundColor.addEventListener('change', (event) => { render(); });
+      backgroundColor.addEventListener('change', (event) => { render(); });
+      points.addEventListener('change', (event) => { render(); });
+      labels.addEventListener('change', (event) => {
+        render();
+        event.target.setAttribute('rows', event.target.value.split(/\n/).length);
+      });
+
+      render();
+
+      const handleResize = () => {
+        let timer;
+        return () => {
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            render();
+          }, 75);
+        };
+      };
+      window.addEventListener('resize', handleResize());
+    </script>
+  </body>
+</html>
