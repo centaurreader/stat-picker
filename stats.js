@@ -169,7 +169,6 @@ function stats({
       onChange(controlPoints);
 
       div.addEventListener('touchend', (event) => {
-        event.preventDefault();
         const control = document.getElementById(id);
         const { x: containerX, y: containerY } = controlsContainer.getBoundingClientRect();
     

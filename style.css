@@ -16,7 +16,6 @@ body {
   max-width: 60%;
   margin: 0 auto;
   position: relative;
-  border-radius: 400px;
 }
 .st-figure  {
   position: absolute;
@@ -53,6 +52,7 @@ body {
   z-index: 2000;
   background-color: transparent;
   transition: background-color .25s;
+  touch-action: none;
 }
 .st-control::after {
   content: ' ';
