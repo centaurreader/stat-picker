@@ -76,7 +76,7 @@ function renderPolygon(points, outletElement, containerElement, color) {
 }
 
 
-function Stats({
+function stats({
   selector,
   labels,
   pointCount,
@@ -179,14 +179,13 @@ function Stats({
     const x = (left / containerWidth) * 100;
     const y = (top / containerHeight) * 100;
 
-    console.log(labelPoints, [x,y]);
     if (!isInside([x,y], [...labelPoints].sort(sortPoints))) {
       return;
     }
 
     controlPoints[parseInt(id.split('-')[1])] = [x,y];
 
-    control.setAttribute('style', `top: ${y - 2}%; left: ${x - 2}%; transform: none;`);
+    control.setAttribute('style', `top: ${y}%; left: ${x}%;`);
     renderPolygon(
       controlPoints,
       controlsContainer,

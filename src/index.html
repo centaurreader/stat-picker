@@ -55,7 +55,7 @@ Dog Loving
       const labels = document.getElementById('labels');
 
       const render = () => {
-        values = new Stats({
+        values = stats({
           selector: '#stats',
           labels: labels.value.split(/\n/).filter((v) => !!v.trim()),
           pointCount: parseInt(points.value, 10),
