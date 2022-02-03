@@ -11,7 +11,7 @@
   <body>
     <main>
       <h1>Stats Picker by centaurreader</h1>
-  
+
       <div id="stats"></div>
   
       <section class="controls">
@@ -55,14 +55,14 @@ Dog Loving
       const labels = document.getElementById('labels');
 
       const render = () => {
-        values = stats({
+        stats({
           selector: '#stats',
           labels: labels.value.split(/\n/).filter((v) => !!v.trim()),
           pointCount: parseInt(points.value, 10),
           backgroundColor: backgroundColor.value,
           foregroundColor: foregroundColor.value,
           values,
-          onChange: (value) => { values = value; },
+          onChange: (value) => { console.log(values); values = value; },
         });
       };
 

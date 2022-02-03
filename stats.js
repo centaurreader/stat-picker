@@ -164,6 +164,7 @@ function stats({
         : ((div.offsetTop - ((Math.random() * 150) - 75)) / containerHeight) * 100;
       div.setAttribute('style', `left: ${x}%; top: ${y}%;`);
       controlPoints.push([x,y]);
+      onChange(controlPoints);
     });
 
   const controlsContainer = document.getElementById('st-controls');
