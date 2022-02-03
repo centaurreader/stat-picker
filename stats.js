@@ -133,6 +133,7 @@ function stats({
     >
     </svg>
   `;
+  const controlsContainer = document.getElementById('st-controls');
 
   labelPoints.forEach(([x,y], i) => {
     const span = document.createElement('span');
@@ -150,10 +151,11 @@ function stats({
       div.classList.add('st-control');
       div.setAttribute('draggable', 'true');
       div.setAttribute('id', id);
-      div.addEventListener('dragstart', (event) => {
+      const moveStart = (event) => {
         event.dataTransfer.effectAllowed = "move";
         event.dataTransfer.setData('id',id);
-      });
+      };
+      div.addEventListener('dragstart', moveStart);
       containerEl.appendChild(div);
       const { height: containerHeight, width: containerWidth } = getElementDimensions(containerEl);
       const x = values?.[i]
@@ -165,9 +167,35 @@ function stats({
       div.setAttribute('style', `left: ${x}%; top: ${y}%;`);
       controlPoints.push([x,y]);
       onChange(controlPoints);
+
+      div.addEventListener('touchend', (event) => {
+        event.preventDefault();
+        const control = document.getElementById(id);
+        const { x: containerX, y: containerY } = controlsContainer.getBoundingClientRect();
+    
+        const left = event.changedTouches[event.changedTouches.length-1].pageX - containerX;
+        const top = event.changedTouches[event.changedTouches.length-1].pageY - containerY;
+        const { height: containerHeight, width: containerWidth } = getElementDimensions(controlsContainer);
+        const x = (left / containerWidth) * 100;
+        const y = (top / containerHeight) * 100;
+    
+        if (!isInside([x,y], [...labelPoints].sort(sortPoints))) {
+          return;
+        }
+    
+        controlPoints[parseInt(id.split('-')[1])] = [x,y];
+    
+        control.setAttribute('style', `top: ${y}%; left: ${x}%;`);
+        renderPolygon(
+          controlPoints,
+          controlsContainer,
+          controlsContainer,
+          foregroundColor,
+        );
+        onChange(controlPoints);
+      });
     });
 
-  const controlsContainer = document.getElementById('st-controls');
   controlsContainer.ondrop = (event) => {
     event.preventDefault();
     const id = event.dataTransfer.getData('id');
