@@ -147,31 +147,31 @@ function stats({
   new Array(pointCount).fill(undefined)
     .forEach((_, i) => {
       const id = `control-${i}`;
-      const div = document.createElement('div');
-      div.classList.add('st-control');
-      div.setAttribute('draggable', 'true');
-      div.setAttribute('id', id);
+      const button = document.createElement('button');
+      button.classList.add('st-control');
+      button.setAttribute('draggable', 'true');
+      button.setAttribute('id', id);
       const moveStart = (event) => {
         event.dataTransfer.effectAllowed = "move";
         event.dataTransfer.setData('id',id);
       };
-      div.addEventListener('dragstart', moveStart);
-      containerEl.appendChild(div);
+      button.addEventListener('dragstart', moveStart);
+      containerEl.appendChild(button);
       const { height: containerHeight, width: containerWidth } = getElementDimensions(containerEl);
       const x = values?.[i]
         ? values[i][0]
-        : ((div.offsetLeft - ((Math.random() * 150) - 75)) / containerWidth) * 100;
+        : ((button.offsetLeft - ((Math.random() * 150) - 75)) / containerWidth) * 100;
       const y = values?.[i]
         ? values[i][1]
-        : ((div.offsetTop - ((Math.random() * 150) - 75)) / containerHeight) * 100;
-      div.setAttribute('style', `left: ${x}%; top: ${y}%;`);
+        : ((button.offsetTop - ((Math.random() * 150) - 75)) / containerHeight) * 100;
+        button.setAttribute('style', `left: ${x}%; top: ${y}%;`);
       controlPoints.push([x,y]);
       onChange(controlPoints);
 
-      div.addEventListener('touchstart', () => {
+      button.addEventListener('touchstart', () => {
         document.body.setAttribute('style', 'overflow: hidden');
       }, {passive: false});
-      div.addEventListener('touchmove', (event) => {
+      button.addEventListener('touchmove', (event) => {
         const control = document.getElementById(id);
         const { x: containerX, y: containerY } = controlsContainer.getBoundingClientRect();
     
@@ -195,8 +195,8 @@ function stats({
           foregroundColor,
         );
         onChange(controlPoints);
-      });
-      div.addEventListener('touchend', () => {
+      }, { passive: true });
+      button.addEventListener('touchend', () => {
         document.body.removeAttribute('style');
       });
     });
