@@ -3,7 +3,7 @@
 
 * { box-sizing: border-box; }
 
-html {height: 100%; min-height: -webkit-fill-available; }
+html { height: 100%; }
 body { overflow: hidden; }
 
 body {
@@ -90,17 +90,12 @@ h1,
 .controls {
   flex-wrap: wrap;
   position: absolute;
-  top: calc(100% - 39px - 32px);
+  bottom: 0;
   left: 0;
-  transition: transform .25s cubic-bezier(0.420, 0.675, 0.615, 0.975);
-  transform: translateY(0);
   width: 100%;
   padding: 0 1rem 1rem;
   background: linear-gradient(tomato, cyan);
   z-index: 4000;
-}
-.controls--open {
-  transform: translateY(-80%);
 }
 #controls_button {
   padding: 0;
@@ -119,6 +114,14 @@ h1,
 .controls h2:active {
   box-shadow: 0 -2px 0 0 black;
   transform: translateY(2px);
+}
+.controls_container {
+  max-height: 0;
+  transition: max-height .25s cubic-bezier(0.420, 0.675, 0.615, 0.975);
+  overflow: hidden;
+}
+.controls_container--open {
+  max-height: 500px;
 }
 .controls input, .controls textarea {
   display: block;

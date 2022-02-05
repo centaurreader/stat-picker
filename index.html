@@ -16,32 +16,34 @@
   
       <section class="controls" id="controls">
         <button id="controls_button"><h2>Controls</h2></button>
-        <label>
-          Foreground Color
-          <input type="color" id="foreground_color" value="#ff6347" />
-        </label>
-        <label>
-          Background Color
-          <input type="color" id="background_color" value="#d8bfd8" />
-        </label>
-        <label>
-          Points
-          <input type="number" min="0" step="1" id="points" value="3" />
-        </label>
-        <label>
-          Labels
-          <textarea
-            rows="6"
-            id="labels"
-          >
+        <div class="controls_container">
+          <label>
+            Foreground Color
+            <input type="color" id="foreground_color" value="#ff6347" />
+          </label>
+          <label>
+            Background Color
+            <input type="color" id="background_color" value="#d8bfd8" />
+          </label>
+          <label>
+            Points
+            <input type="number" min="0" step="1" id="points" value="3" />
+          </label>
+          <label>
+            Labels
+            <textarea
+              rows="6"
+              id="labels"
+            >
 Muscle
 Knowledge
 Hair Quality
 Eye Sight
 Dog Loving
-          </textarea>
-          <small>Each on a new line</small>
-        </label>
+            </textarea>
+            <small>Each on a new line</small>
+          </label>
+        </div>
       </section>
     </main>
 
@@ -90,8 +92,8 @@ Dog Loving
     <script>
       const controlsButton = document.getElementById('controls_button');
       controlsButton.addEventListener('click', () => {
-        const controlsSection = document.getElementById('controls');
-        controlsSection.classList.toggle('controls--open')
+        const controlsSection = document.querySelector('.controls_container');
+        controlsSection.classList.toggle('controls_container--open');
       });
     </script>
   </body>
