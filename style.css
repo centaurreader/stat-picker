@@ -3,7 +3,7 @@
 
 * { box-sizing: border-box; }
 
-html, body { min-height: 100%; }
+html, body { min-height: 100vh; overflow: hidden; }
 
 body {
   background: linear-gradient(rgb(104, 241, 50), rgb(61, 231, 231));
@@ -87,6 +87,23 @@ h1,
 
 .controls {
   flex-wrap: wrap;
+  position: absolute;
+  top: calc(100% - 39px - 32px);
+  left: 0;
+  transition: transform .25s;
+  transform: translateY(0);
+  width: 100%;
+  padding: 0 1rem 1rem;
+  background: linear-gradient(tomato, cyan);
+  z-index: 4000;
+}
+#controls_button {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+.controls--open {
+  transform: translateY(-80%);
 }
 .controls input, .controls textarea {
   display: block;

@@ -14,8 +14,8 @@
 
       <div id="stats"></div>
   
-      <section class="controls">
-        <h2>Controls</h2>
+      <section class="controls" id="controls">
+        <button id="controls_button"><h2>Controls</h2></button>
         <label>
           Foreground Color
           <input type="color" id="foreground_color" value="#ff6347" />
@@ -86,6 +86,13 @@ Dog Loving
         };
       };
       window.addEventListener('resize', handleResize());
+    </script>
+    <script>
+      const controlsButton = document.getElementById('controls_button');
+      controlsButton.addEventListener('click', () => {
+        const controlsSection = document.getElementById('controls');
+        controlsSection.classList.toggle('controls--open')
+      });
     </script>
   </body>
 </html>
