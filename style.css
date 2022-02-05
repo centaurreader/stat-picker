@@ -3,7 +3,14 @@
 
 * { box-sizing: border-box; }
 
-html, body { min-height: 100vh; overflow: hidden; }
+html, body {
+  min-height: 100vh;
+  overflow: hidden;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  margin: 0; padding: 0;
+  width: 100vw;
+}
 
 body {
   background: linear-gradient(rgb(104, 241, 50), rgb(61, 231, 231));
